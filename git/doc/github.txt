@@ -1,0 +1,20 @@
+github
+提供git服务的供应商之一.
+
+
+
+
+
+
+SSH
+1) 使用https url克隆到本地 (例如: https://github.com/zhengqianye/camel.git) 也可以使用ssh url 克隆到本地。
+2) 区别: https可以随意克隆github上的项目，而ssh必须是项目拥有者或管理员，且需要先添加ssh key，否则
+无法克隆.
+https在push的时候需要验证用户名和密码，而在ssh在push的时候，是不需要输入用户名的，如果配置ssh key时
+设置了密码，则需要输入密码，否则是不需要输入密码的.
+3) 配置ssh key
+运行git Bash客户端
+
+
+
+

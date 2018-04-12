@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site pack200="true" digestURL="http://updatesite.rubypeople.org/nightly/"> 
+	<description url="http://updatesite.rubypeople.org/nightly/">Ruby Development Tools</description>
+	<feature url="features/com.aptana.rdt.mylyn_feature_0.9.1.200711131528NGT.jar" id="com.aptana.rdt.mylyn_feature" version="0.9.1.200711131528NGT">
+		<category name="Ruby Integration"/>
+	</feature>
+	<feature url="features/org.rubypeople.rdt_0.9.1.200711131528NGT.jar" id="org.rubypeople.rdt" version="0.9.1.200711131528NGT">
+		<category name="Ruby"/>
+	</feature>
+	<category-def name="Ruby" label="Ruby Development Tools">
+        <description>Adds support for Rails development to Eclipse</description>
+	</category-def>
+	<category-def name="Ruby Integration" label="Ruby Integration Plugins">
+		<description>Ruby Development Tools integration for third party tools.</description>
+	</category-def>
+</site>

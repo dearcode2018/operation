@@ -1,0 +1,129 @@
+
+TortoiseSVN 
+
+一次要更新很多个工作目录，而且只是做更新，做其他动作需要单个进行，只有更新可以通过自动化后实现，
+每天工作开始之前，先更新多个svn目录，保持各种文档最新，一般，这种文档目录不会太多，可以通过定制
+来实现.
+
+TortoiseProc /path:"E:\xtionkx\2.需求分析\V6.02\V6.02.1"  /command:update /closeonend:2
+
+
+
+
+
+
+
+
+
+
+
+
+
+内容目录：
+
+TortoiseSVN是一个GUI客户端，这个自动化指导为你展示了让TortoiseSVN对话框显示并收集客户输入，如果你希望编写不需要输入的脚本，你应该使用官方的Subversion命令行客户端。
+
+TortoiseSVN的GUI程序叫做TortoiseProc.exe。所有的命令通过参数/command:abcd指定，其中abcd是必须的命令名。大多数此类命令至少需要一个路径参数，使用/path:"some\path"指定。在下面的命令表格中，命令引用的是/command:abcd参数，余下的代表了/path:"some\path"参数。
+
+因为一些命令需要一个目标路径的列表(例如提交一些特定的文件)，/path参数可以接收多个路径，使用*分割。
+
+TortoiseSVN 使用临时文件在 shell 扩展和主程序之间传递多个参数。从 TortoiseSVN 1.5.0 开始，废弃/notempfile参数，不再需要增加此参数。
+
+The progress dialog which is used for commits, updates and many more commands usually stays open after the command has finished until the user presses theOK button. This can be changed by checking the corresponding option in the settings dialog. But using that setting will close the progress dialog, no matter if you start the command from your batch file or from the TortoiseSVN context menu.
+
+To specify a different location of the configuration file, use the parameter /configdir:"path\to\config\directory". This will override the default path, including any registry setting.
+
+如果想在进度对话框执行完毕后自动关闭，而又不必设置永久性的参数，可以传递/closeonend参数。
+
+    /closeonend:0 不自动关闭对话框
+
+    /closeonend:1 如果没发生错误则自动关闭对话框
+
+    /closeonend:2 如果没发生错误和冲突则自动关闭对话框
+
+    /closeonend:3如果没有错误、冲突和合并，会自动关闭
+
+    /closeonend:4如果没有错误、冲突和合并，会自动关闭
+
+下面的列表列出了所有可以使用TortoiseProc.exe访问的命令，就像上面的描述，必须使用/command:abcd的形式，在列表中，因为节省空间的关系省略了/command的前缀。
+
+表 D.1. 有效命令及选项列表
+命令	描述
+:about 	显示关于对话框。如果没有给命令也会显示。
+:log 	打开日志对话框，/path 指定了显示日志的文件或目录，另外还有三个选项可以设置: /startrev:xxx、/endrev:xxx和/strict
+:checkout 	打开检出对话框，/path指定了目标路径，而/url制定了检出的URL。
+:import 	打开导入对话框，/path 指定了数据导入路径。
+:update 	将工作副本的/path更新到HEAD，如果给定参数/rev，就会弹出一个对话框询问用户需要更新到哪个修订版本。为了防止指定修订版本号/rev:1234的对话框，需要选项/nonrecursive和/ignoreexternals。
+:commit 	打开提交对话框，/path 指定了目标路径或需要提交的文件列表，你也可以使用参数 /logmsg 给提交窗口传递预定义的日志信息，或者你不希望将日志传递给命令行，你也可以使用/logmsgfile:path，path 指向了保存日志信息的文件。为了预先填入bug的ID(如果你设置了集成bug追踪属性)，你可以使用/bugid:"the bug id here"完成这个任务。
+:add 	将/path的文件添加到版本控制 。
+:revert 	恢复工作副本的本地修改，/path说明恢复哪些条目。
+:cleanup 	清理中断和终止的操作，将工作副本的/path解锁。
+:resolve 	将/path指定文件的冲突标示为解决，如果给定/noquestion，解决不会向用户确认操作。
+:repocreate 	在/path创建一个版本库。
+:switch 	打开选项对话框。/path 指定目标目录。
+:export 	将/path的工作副本导出到另一个目录，如果/path指向另一个未版本控制目录，对话框会询问要导出到/path的URL。
+:merge 	Opens the merge dialog. The /path specifies the target directory. For merging a revision range, the following options are available: /fromurl:URL, /revrange:string. For merging two repository trees, the following options are available: /fromurl:URL, /tourl:URL, /fromrev:xxx and /torev:xxx. These pre-fill the relevant fields in the merge dialog.
+:mergeall 	Opens the merge all dialog. The /path specifies the target directory.
+:copy 	Brings up the branch/tag dialog. The /path is the working copy to branch/tag from. And the /url is the target URL. You can also specify the /logmsg switch to pass a predefined log message to the branch/tag dialog. Or, if you don't want to pass the log message on the command line, use /logmsgfile:path, where path points to a file containing the log message.
+:settings 	打开设置对话框。
+:remove 	从版本控制里移除/path中的文件。
+:rename 	重命名/path的文件，会在对话框中询问新文件，为了防止一个步骤中询问相似文件，传递/noquestion。
+:diff 	Starts the external diff program specified in the TortoiseSVN settings. The /path specifies the first file. If the option /path2 is set, then the diff program is started with those two files. If /path2 is omitted, then the diff is done between the file in /path and its BASE. To explicitly set the revision numbers use /startrev:xxx and /endrev:xxx. If/blame is set and /path2 is not set, then the diff is done by first blaming the files with the given revisions.
+:showcompare 	
+
+Depending on the URLs and revisions to compare, this either shows a unified diff (if the option unified is set), a dialog with a list of files that have changed or if the URLs point to files starts the diff viewer for those two files.
+
+The options url1, url2, revision1 and revision2 must be specified. The options pegrevision, ignoreancestry, blame and unified are optional.
+:conflicteditor 	Starts the conflict editor specified in the TortoiseSVN settings with the correct files for the conflicted file in /path.
+:relocate 	打开重定位对话框，/path指定了重定位的工作副本路径。
+:help 	打开帮助文件
+:repostatus 	打开为修改检出对话框，/path 指定了工作副本目录。
+:repobrowser 	Starts the repository browser dialog, pointing to the URL of the working copy given in /path or /path points directly to an URL. An additional option /rev:xxx can be used to specify the revision which the repository browser should show. If the /rev:xxx is omitted, it defaults to HEAD. If /path points to an URL, the /projectpropertiespath:path/to/wcspecifies the path from where to read and use the project properties.
+:ignore 	将/path中的对象加入到忽略列表，也就是将这些文件添加到 svn:ignore 属性。
+:blame 	
+
+为 /path 选项指定的文件打开追溯对话框。
+
+如果设置了 /startrev 和 /endrev 选项，不会显示询问追溯范围对话框，直接使用这些选项中的版本号。
+
+如果设置了 /line:nnn 选项，TortoiseBlame 会显示指定行数。
+
+也支持 /ignoreeol，/ignorespaces 和 /ignoreallspaces 选项。
+:cat 	将/path指定的工作副本或URL的文件保存到/savepath:path，修订版本号在/revision:xxx，这样可以得到特定修订版本的文件。
+:createpatch 	创建/path下的补丁文件。
+:revisiongraph 	显示/path目录下的版本变化图。
+:lock 	Locks a file or all files in a directory given in /path. The 'lock' dialog is shown so the user can enter a comment for the lock.
+:unlock 	Unlocks a file or all files in a directory given in /path.
+:rebuildiconcache 	Rebuilds the windows icon cache. Only use this in case the windows icons are corrupted. A side effect of this (which can't be avoided) is that the icons on the desktop get rearranged. To suppress the message box, pass /noquestion.
+:properties 	显示 /path 给出的路径之属性对话框。
+
+
+Examples (which should be entered on one line):
+
+TortoiseProc.exe /command:commit
+                 /path:"c:\svn_wc\file1.txt*c:\svn_wc\file2.txt"
+                 /logmsg:"test log message" /closeonend:0
+
+TortoiseProc.exe /command:update /path:"c:\svn_wc\" /closeonend:0
+
+TortoiseProc.exe /command:log /path:"c:\svn_wc\file1.txt"
+                 /startrev:50 /endrev:60 /closeonend:0
+
+From：http://tortoisesvn.net/docs/release/TortoiseSVN_zh_CN/tsvn-automation.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.hua</groupId>
+		<artifactId>operation-entire</artifactId>
+		<version>0.0.1</version>
+	</parent>	
+	<artifactId>jetty</artifactId>
+	<packaging>jar</packaging>
+	<name>jetty</name>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<common.version>0.0.1</common.version>
+		<jetty.version>9.3.4.RC1</jetty.version>		
+		<maven.plugin.dependency.version>2.10</maven.plugin.dependency.version>				
+	</properties>
+
+	<!-- 项目构建 -->
+	<build>
+		<plugins>
+			<!-- 输出依赖jar包到指定目录，在Goals 中输入: dependency:copy-dependencies -->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<configuration>
+					<outputDirectory>${project.build.directory}/lib</outputDirectory>
+					<!-- 是否包含间接依赖包，选择 false 才能输出当前项目所有依赖的包 -->
+					<excludeTransitive>false</excludeTransitive>
+					<!-- 是否去掉版本信息 -->
+					<stripVersion>false</stripVersion>
+				</configuration>
+				<!-- 放入执行 -->
+				<executions>
+					<execution>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<!-- 是否包含间接依赖包，选择 false 才能输出当前项目所有依赖的包 -->
+							<excludeTransitive>false</excludeTransitive>
+							<!-- 是否去掉版本信息 -->
+							<stripVersion>false</stripVersion>							
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>	
+
+	<dependencies>
+		<dependency>
+			<groupId>com.hua</groupId>
+			<artifactId>common</artifactId>
+			<version>${common.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>${jetty.version}</version>
+		</dependency>
+		
+	</dependencies>
+
+</project>

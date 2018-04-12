@@ -1,0 +1,5 @@
+
+
+:: set classpath variable area
+
+
